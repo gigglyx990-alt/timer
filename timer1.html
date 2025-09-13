@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Screen Timer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #222;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 3rem;
+      margin-bottom: 30px;
+    }
+
+    .location span {
+      font-size: 1.5rem;
+      color: #bbb;
+      display: block;
+    }
+
+    .flag {
+      width: 100px;
+      border: 1px solid #444;
+    }
+
+    .timer-wrapper {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .timer {
+      font-size: 20vw;  /* Responsive big size */
+      font-weight: bold;
+      color: #ffc107;
+      line-height: 1;
+    }
+
+    .seconds {
+      color: white;
+      font-size: 7vw;  /* Smaller but still big */
+      margin-left: 5px;
+    }
+
+    .date {
+      font-size: 2rem;
+      color: white;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .location {
+        font-size: 2rem;
+      }
+      .flag {
+        width: 70px;
+      }
+      .timer {
+        font-size: 25vw;
+      }
+      .seconds {
+        font-size: 10vw;
+      }
+      .date {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="location">
+    <img src="https://flagcdn.com/w80/in.png" alt="India Flag" class="flag">
+    <div>
+      New Delhi<br><span>India</span>
+    </div>
+  </div>
+
+  <div class="timer-wrapper">
+    <span class="timer" id="hours-minutes">00:00</span>
+    <span class="seconds" id="seconds">00</span>
+  </div>
+
+  <div class="date" id="date">Loading date...</div>
+
+  <script>
+    function updateClock() {
+      let now = new Date();
+
+      let hours = String(now.getHours()).padStart(2, '0');
+      let minutes = String(now.getMinutes()).padStart(2, '0');
+      let seconds = String(now.getSeconds()).padStart(2, '0');
+
+      document.getElementById("hours-minutes").textContent = `${hours}:${minutes}`;
+      document.getElementById("seconds").textContent = seconds;
+
+      const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+      document.getElementById("date").textContent = now.toLocaleDateString("en-GB", options);
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
